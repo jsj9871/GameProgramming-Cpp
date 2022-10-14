@@ -1,129 +1,114 @@
 #include <iostream>	// 입출력 스트림
 
-// 스트림
-// 시간의 흐름에 따라 연속적으로 발생하는 데이터 흐름
+// 상속
+// 기존에 정의되어 있는 상위 클래스의 모든 멤버 변수, 함수를 물려받아
+// 하위 클래스가 사용할 수 있는 것
 
-// auto는 매개 변수로 사용 X
-/*void Function(auto x)
+// 상위 클래스 : 상속을 물려주는 클래스
+// 하위 클래스 : 상속을 물려받는 클래스
+
+class Phone
 {
-
-}*/
-
-// 클래스
-// 특정 객체에 속성과 기능을 정한 집합체
-class Player
-{
-// 접근 지정자
-// 클래스 외부에서 접근 가능 멤버(변수, 함수)와 클래스 외부에서
-// 접근이 허용되지 않는 멤버(변수, 함수) 구분
-
-// public : 클래스 내부, 자기가 상속하고 있는 클래스 외부 접근 허용
-// private : 클래스 내부 접근 허용
-//           자기가 상속하는 클래스, 클래스 외부 접근 허용 X
-// protected : 클래스 내부, 자기가 상속하는 클래스 접근 허용
-//             클래스 외부 접근 허용 X
-
-// 클래스는 기본적으로 private 설정
-
 public:
-	int health = 100;
-	float height = 183.5;
-	std::string name = "Joung Seong Jin";
-
-private:
-	void Attack()
+	// 생성자는 자신의 클래스 이름 (반환형 X)
+	Phone()
 	{
-		std::cout << "공격" << std::endl;
+		std::cout << "휴대폰이 생성되었습니다." << std::endl;
+	}
+
+	// 소멸자는 자신의 클래스 이름 앞에 ~ 사용
+	~Phone()
+	{
+		std::cout << "핸드폰이 파괴되었습니다." << std::endl;
+	}
+
+	std::string name;
+
+	void Message()
+	{
+		std::cout << "문자 보내기" << std::endl;
+
+		// 상위 클래스는 하위 클래스에서 정의한 함수 사용 X
+		// Touch();
+	}
+
+protected:
+	void Call()
+	{
+		std::cout << "전화 걸기" << std::endl;
+	}
+};
+
+// 상속하는 방법
+// (하위)클래스 : (ex : Phone) <- 상위 클래스 이름
+class SmartPhone : Phone
+{
+public:
+	void Touch()
+	{
+		Call();
 	}
 };
 
 int main()
 {
-	// C++ 기본 입출력
+	// C++ 동적 할당
 	/*
-	// std::cout : 출력하기 위한 객체
-	// std::endl : 문자열 개행
+	// new > (힙 영역에 할당할 메모리 공간 크기)
+	int* ptr = new int;
+	
+	*ptr = 100;
 
-	// 삽입 연산자 "<<" : 출력 스트림 개체에 바이트로 보내는 연산자
+	std::cout << *ptr << std::endl;
+	std::cout << ptr << std::endl;
 
-	char alphabet = 'B';
-	int value = 10;
-	float variable = 10.5;
+	// delete : new로 동적 할당한 메모리 공간 해제
+	delete ptr;
 
-	std::cout << "alphabet 변수의 값 : " << alphabet << std::endl;
-	std::cout << "value 변수의 값 : " << value << std::endl;
-	std::cout << "variable 변수의 값 : " << variable << std::endl;
 
-	// 추출 연산자 ">>" : 입력한 데이터를 입력 스트림에서 추출하여
-	//                   오른쪽에 위치한 변수에 값 저장
+	int* arrptr = new int[5];
+	
+	// 4byte * 5 = 20 byte
+	// [0] [1] [2] [3] [4]
 
-	// std::cin : 입력하기 위한 객체
+	arrptr[0] = 20;
+	arrptr[1] = 30;
+	arrptr[2] = 40;
+	arrptr[3] = 50;
+	arrptr[4] = 60;
 
-	std::cin >> value;
-
-	std::cout << "value 변수의 값 : " << value << std::endl;
-
-	std::cout << "두번째 안녕하세요.";
-	*/
-
-	// bool = 참과 거짓을 나타내는 자료형
-	//bool value = true;
-
-	// 범위 기반 for문
-	/*
-	// 시작과 끝점을 알려주지 않아도 데이터 크기에 따라 끝까지 순회해주는 반복문
-
-	int array [] = { 1, 2, 3, 4, 5 };
-
-	// element : 변수 이름
-	// array : 데이터 리스트 (배열, 벡터, 리스트)
-	for (int element : array)
-	{	
-		// 범위 기반 for문 단점
-		// 1. for문 내 index 정보 존재 X
-		// 2. for문 내 배열의 요소 변경 X
-
-		// 값을 지정된 형태로 증가시키는 것 가능
-		// element += 1;
-		
-		// 배열 안 값 전체 초기화 가능
-		// element = 10;
-
-		element = 10;
-
-		// element : call by value 형태로 값 넘겨줌
-		std::cout << element << std::endl;
-	}
-
-	std::cout << "--------" << std::endl;
-
-	for (int element : array)
+	for (int i = 0; i < 5; i++)
 	{
-		std::cout << element << std::endl;
+		std::cout << arrptr[i] << std::endl;
 	}
+
+	delete [] arrptr;
 	*/
 
-	// 자료형 추론
-	/*
-	// 변수나 함수를 선언하고 연산이 이루어질 때
-	// 컴파일러가 자동으로 자료형을 추론
+	//Phone phone;	// <- 스택
 
-	// 자료형 추론은 변수를 초기화하지 않으면 사용 X
+	Phone* phone = new Phone();	// <- 힙
 
-	auto value = 10;
-	auto decimal = 20.6;
+	delete phone;
+	//SmartPhone* sPhone = new SmartPhone();
 
-	std::cout << "value 변수의 값 : " << value << std::endl;
-	*/
+	// 정적 바인딩
+	// 배열 크기는 컴파일 시점에 메모리 크기 결정
+	// 배열 [100]; <- 80 ~ 90개 메모리 공간 낭비
+	
+	// 특정 시점에 배열 크기 100개 사용해야되지만,
+	// 그 특정 시점이 넘어가면 더이상 사용할 필요 없을 때
+	
+	// 동적 할당은 실행 시간에 메모리 공간 확보, 줄이고 가능
 
-	// 클래스
-	Player kim;
+	//phone->Message();
+	//sPhone->Touch();
 
-	//kim.health = 100;
-	//kim.size = 10.56;
-	//kim.name = "Kim";
+	// 생성자
+	// 클래스의 객체가 생성되었을 때 객체 초기화 목적으로 자동 호출되는 함수
 
-	std::cout << kim.health << " " << kim.height << " " << kim.name << std::endl;
+	// 소멸자
+	// 클래스의 객체가 소멸되었을때 자동 호출되는 함수
 
 	return 0;
 }
