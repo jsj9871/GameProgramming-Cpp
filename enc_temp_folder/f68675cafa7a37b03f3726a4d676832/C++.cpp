@@ -94,9 +94,9 @@ int main()
 		sum = 0;
 		
 		cin >> buffer;
-		3
+
 		// [O][X][X][O][X][O][O] = 5
-		for (int j = 0; j < strlen(buffer); j++)
+		for (int j = 0; i < strlen(buffer); j++)
 		{
 			if (buffer[j] == 'O')
 			{

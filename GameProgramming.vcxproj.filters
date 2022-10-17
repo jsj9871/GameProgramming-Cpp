@@ -23,5 +23,8 @@
     <ClInclude Include="2022.10.13%28입출력, 접근지정자%29.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="2022.10.14%28상속, 동적할당%29.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
