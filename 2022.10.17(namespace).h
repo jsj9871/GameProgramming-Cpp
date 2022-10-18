@@ -92,11 +92,11 @@ int main()
 	{
 		score = 1;
 		sum = 0;
-		
+
 		cin >> buffer;
 
 		// [O][X][X][O][X][O][O] = 5
-		for (int j = 0; i < strlen(buffer); j++)
+		for (int j = 0; j < strlen(buffer); j++)
 		{
 			if (buffer[j] == 'O')
 			{
