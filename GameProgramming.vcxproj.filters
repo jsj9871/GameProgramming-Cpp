@@ -38,5 +38,8 @@
     <ClInclude Include="2022.10.18(클래스 구현부, 선언부).h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="2022.10.20(참조자).h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

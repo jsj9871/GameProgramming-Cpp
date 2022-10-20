@@ -2,126 +2,132 @@
 
 using namespace std;
 
-// 래퍼런스 연산자
+// 깊은 복사
 /*
-// 포인터를 이용하여 메모리 연산 허용 X
+// 참조 값이 아닌 인스턴스를 새로 복사하여 실제 값 복사
 
-// 참조자 사용하는 이유
-// 
-void Function(int & x)
+class Object
 {
-	x = 100;
-}
+// 속성
+private:
+	// m(멤버)_변수 이름
+	int m_position;
+	float m_size;
+	int* m_memory;
+
+public:
+	// 생성자는 public
+	Object(int position, float size)
+	{
+		m_position = position;
+		m_size = size;
+
+		m_memory = new int(10);
+
+		cout << "memory 값 : " << *m_memory << endl;
+		cout << "position 값 : " << m_position << endl;
+		cout << "size 값 : " << m_size << endl;
+	}
+
+	// 복사 생성자
+	// 같은 클래스의 객체로부터 '복사'해서 새로운 객체 생성
+
+	// 복사 생성자에 인수로 &(레퍼런스) 받는 이유
+	// 새로운 객체 생성할 때 오버헤드 방지 위해
+
+	// const : 복사된 데이터 보호 위해 상수화
+	Object(const Object& copyObject)
+	{
+		m_memory = new int(*copyObject.m_memory);
+		m_position = copyObject.m_position;
+		m_size = copyObject.m_size;
+
+		cout << "memory 값 : " << *m_memory << endl;
+		cout << "position 값 : " << m_position << endl;
+		cout << "size 값 : " << m_size << endl;
+	}
+
+	// 객체 소멸될 때 동적 할당한 메모리 공간 해제
+	~Object()
+	{
+		delete m_memory;
+	}
+};
 */
 
-// 인라인 함수
-// 함수를 호출하는 대신 함수가 호출되는 위치마다
-// 함수의 코드를 복사하여 전달하는 방식
+// 기본 생성자
+// 프로그래머가 정의한 생성자가 없는 경우
+// 컴파일러가 자동 생성
 
-// 매크로 함수 vs 인라인 함수
-// 매크로 함수 : 전처리기에서 처리
-// 인라인 함수 : 컴파일시점에 처리
-
-// 객체지향 프로그래밍
-// 여러 개의 객체들끼리 상호작용 통해 로직 구성
-
-inline void Function()
+class Book
 {
-	cout << "공격" << endl;
-}
+public:
+	int page;
+	string name;
+
+	// 기본 생성자의 경우 생성자가 하나라도 선언되어 있다면
+	// 기본 생성자 자동 생성 X
+	// Book() {}; <- 생성자가 없는 기본 생성자 생성
+
+	Book()
+	{
+		cout << "생성자 호출" << endl;
+	}
+};
+
+class Cover : Book
+{
+
+};
 
 int main()
 {
-	// 참조자
+	// 얕은 복사
 	/*
-	// 자신이 참조하는 변수를 대신할 수 있는 또 하나의 이름
+	// 값을 복사하는데 인스턴스가 메모리에 새로 생성되지 않는 형태
+	// 값 자체를 복사하는 것이 아니라 주소 값을 복사하여 같은 메모리 가리킴
 
-	// 하나의 메모리 공간에 2개의 이름 존재
+	int* a = new int(10);	// 동적 메모리 공간 할당
+	int* b = new int(20);
+
+	cout << "a의 값 : " << *a << endl;
+	cout << "b의 값 : " << *b << endl;
+
+	// 얕은 복사 발생
+	a = b;
+
+	*b = 100;
+
+	cout << "a의 값 : " << *a << endl;
+	cout << "b의 값 : " << *b << endl;
+
+	delete a;
+	//delete b;
+	
+
+	// 생성자에 매개변수가 있다면 클래스를 인스턴스(메모리 할당)할 때
+	// 클래스에 인수를 넣어야 함
+
+	Object cat1(10, 5.5);
+
+	Object cat2 = cat1;
+
+	
 	int a = 10;
-	int& tvalue = a;
-	int& ref = tvalue;
+	int b = 20;
+	int c = 30;
 
-	// 참조자는 초기화 필수, NULL X
-	// int& va = NULL;
+	// 0 1 2
+	int array[3] = {a, b, c};
 
-	Function(a);
-
+	array[0] = 100;
+	cout << array[0] << endl;
 	cout << a << endl;
 	*/
 
-	/*
-	cout << "a의 값 : " << a << endl;
-	cout << "tvalue의 값 : " << tvalue << endl;
+	Book book1;
 
-	ref = 30;
+	Cover cover;
 
-	cout << "a의 값 : " << a << endl;
-	cout << "tvalue의 값 : " << tvalue << endl;
-	*/
-
-	// 인라인 함수
-	/*
-	// 함수 내에 있는 내용이 간단할 때 사용
-	
-	// 함수가 여러 번 호출되는 함수일 경우
-	// 인라인 함수를 사용하면 컴파일 크기 커짐
-	Function();
-	*/
-
-	// 캡슐화
-	/*
-	// 클래스의 속성(변수)과 기능(함수)를 하나로 묶어
-	// 실제 구현 내용의 일부를 내부에 감춰 은닉
-
-	class CellPhone
-	{
-	private:
-		int brightness;
-		int volume;
-
-		bool power;
-
-	public:
-		// 값 접근 함수 : Setter
-		// 값 읽는 함수 : Getter
-
-		
-		void SoundVolume(int volumeValue)
-		{
-			if (volumeValue > 100)
-			{
-				volumeValue = 100;
-			}
-			else if (volumeValue < 0)
-			{
-				volumeValue = 0;
-			}
-
-			volume = volumeValue;
-
-			cout << volume << endl;
-		}
-		
-
-		// Setter()
-		void SetVolume(int x)
-		{
-			volume = x;
-		}
-
-		// Getter()
-		int GetVolume()
-		{
-			return volume;
-		}
-	
-	};
-	*/
-	/*
-	CellPhone iPhone;
-	iPhone.SetVolume(10);
-
-	cout << iPhone.GetVolume() << endl;
 	return 0;
-	*/
 }
