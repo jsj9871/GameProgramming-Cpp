@@ -1,122 +1,147 @@
 #include <iostream>	// 입출력 스트림
-#include <conio.h>
-#include <time.h>
 
 using namespace std;
 
-// 가상 소멸자
+// 다중 상속
 /*
-// 가상으로 선언한 소멸자, 가상 생성자 존재 X
+// 클래스가 하나 이상의 상위 클래스로부터 여러가지 행동, 특징 상속 받는 것
 
+class Keyboard
+{
+public:
+	Keyboard()
+	{
+		cout << "Keyboard 호출" << endl;
+	}
+
+	void Input()
+	{
+		cout << "키보드 입력" << endl;
+	}
+
+	char key;
+};
+
+class Mouse
+{
+public:
+	Mouse()
+	{
+		cout << "Mouse 호출" << endl;
+	}
+
+	void Input()
+	{
+		cout << "마우스 입력" << endl;
+	}
+
+	int sensor;
+};
+
+class Computer : public Keyboard, public Mouse
+{
+public:
+	Computer(char _key, int _sensor)
+	{
+		Keyboard::key = _key;
+		Mouse::sensor = _sensor;
+
+		cout << Keyboard::key << endl;
+		cout << Mouse::sensor << endl;
+	}
+};
+*/
+
+// 가상 상속
+/*
 class A
 {
 public:
 	A()
 	{
-		cout << "A 클래스 생성" << endl;
-	}
-
-	virtual ~A()
-	{
-		cout << "A 클래스 소멸" << endl;
+		cout << "A 클래스 호출" << endl;
 	}
 };
 
-class B : public A
+class B : virtual public A
 {
 public:
 	B()
 	{
-		cout << "B 클래스 생성" << endl;
-	}
-
-	virtual ~B()
-	{
-		cout << "B 클래스 소멸" << endl;
-	}
-};
-*/
-
-// friend
-/*
-// 클래스의 멤버 함수 X, 클래스에 선언하면
-// 클래스의 멤버 함수처럼 private 멤버에 접근 가능
-
-class PeopleA
-{
-private:
-	int age;
-
-	friend void Information(PeopleA A)	// 전역 함수로 선언
-	{
-		cout << "PeopleA 클래스 정보" << endl;
-	}
-
-	// 친구로 선언할 클래스 이름 선언
-	// public, private, protected 다 사용 가능
-	friend class PeopleB;
-
-public:
-	PeopleA(int age)
-	{
-		this->age = age;
+		cout << "B 클래스 호출" << endl;
 	}
 };
 
-class PeopleB
+class C : virtual public A
 {
 public:
-	void FreindInformation(PeopleA People)
+	C()
 	{
-		cout << People.age << endl;
+		cout << "C 클래스 호출" << endl;
+	}
+};
+
+class D : public B, public C
+{
+public:
+	D()
+	{
+		cout << "D 클래스 호출" << endl;
 	}
 };
 */
 
 int main()
 {
-	// 가상 소멸자 호출되면
+	// 다중 상속
 	/*
-	// 상속 구조 맨 아래에 있는 하위 클래스의 소멸자 대신 호출
-	// -> 상위 클래스 소멸자 순서대로 호출
-	A* Aptr = new B();
+	Computer computer('A', 40);
 
-	delete Aptr;
+	// 다중 상속일 때 같은 이름의 함수 사용하려면
+	// 클래스 명시, 범위 지정 연산자 사용해서 함수 호출
+	computer.Keyboard::Input();	// Keyboard 클래스의 Input();
+	computer.Mouse::Input();
 	*/
 
-	// friend
+	// 다이아몬드 상속
 	/*
-	PeopleA A(10);
-	Information(A);
-	PeopleB B;
-	B.FreindInformation(A);
+	// 하나의 자식 클래스가 상속 받는 서로 다른 부모 클래스들이
+	// 같은 조부모 클래스를 상속 받는 구조
+
+	D d;
 	*/
 
-	// 곱셈
-	/*
-	int Num1;
-	int Num2;
+	// 나머지
 
-	cin >> Num1 >> Num2;
-
-	cout << (Num2 % 10) * Num1 << endl;
-	cout << (Num2 / 10) % 10 * Num1 << endl;
-	cout << (Num2 / 100) * Num1 << endl;
-	cout << Num1 * Num2 << endl;
-	*/
-
-	// 중복되지 않는 랜덤 값
-	// 1. 배열 생성
-	// 2. 배열에 순차적으로 값 저장
-	// [] [] [] [] []
-
-	int array[10];
-	srand(time(NULL));
+	int array[10] = { 0, };
+	int result = 0;
+	int input = 0;
 
 	for (int i = 0; i < 10; i++)
 	{
-		array[i] = rand() % 10 + 1;
-		cout << array[i] << endl;
+		cin >> input;
+		array[i] = input % 42;
+	}
+
+	// [] [] [] [] [] [] [] [] [] []
+	for (int i = 0; i <= 9; i++)
+	{
+		int count = 0;
+
+		for (int j = i + 1; j <= 9; j++)
+		{
+			if (array[i] == array[j])
+			{
+				count++;
+			}
+		}
+
+		if (count == 0)
+		{
+			result++;
+		}
+
+		cout << result << endl;
 	}
 
 	return 0;
