@@ -1,148 +1,117 @@
 #include <iostream>	// 입출력 스트림
+#include <memory>
 
 using namespace std;
 
-// 다중 상속
+// 스마트 포인터
 /*
-// 클래스가 하나 이상의 상위 클래스로부터 여러가지 행동, 특징 상속 받는 것
-
-class Keyboard
-{
-public:
-	Keyboard()
-	{
-		cout << "Keyboard 호출" << endl;
-	}
-
-	void Input()
-	{
-		cout << "키보드 입력" << endl;
-	}
-
-	char key;
-};
-
-class Mouse
-{
-public:
-	Mouse()
-	{
-		cout << "Mouse 호출" << endl;
-	}
-
-	void Input()
-	{
-		cout << "마우스 입력" << endl;
-	}
-
-	int sensor;
-};
-
-class Computer : public Keyboard, public Mouse
-{
-public:
-	Computer(char _key, int _sensor)
-	{
-		Keyboard::key = _key;
-		Mouse::sensor = _sensor;
-
-		cout << Keyboard::key << endl;
-		cout << Mouse::sensor << endl;
-	}
-};
+// 포인터처럼 동작하는 클래스 탬플릿
+// 사용이 끝난 메모리 자동 해제
 */
 
-// 가상 상속
 /*
-class A
+class Person
 {
 public:
-	A()
+	// shared_ptr 선언할 경우 순환 참조 발생
+	// weak_ptr 선언할 경우 순환 참조 에방
+	weak_ptr<Person> person;
+
+	Person()
 	{
-		cout << "A 클래스 호출" << endl;
+		cout << "생성" << endl;
+	}
+
+	~Person()
+	{
+		cout << "소멸" << endl;
 	}
 };
 
-class B : virtual public A
+class Player
 {
 public:
-	B()
+	Player()
 	{
-		cout << "B 클래스 호출" << endl;
+		cout << "Player 생성" << endl;
 	}
-};
 
-class C : virtual public A
-{
-public:
-	C()
+	~Player()
 	{
-		cout << "C 클래스 호출" << endl;
-	}
-};
-
-class D : public B, public C
-{
-public:
-	D()
-	{
-		cout << "D 클래스 호출" << endl;
+		cout << "Player 소멸" << endl;
 	}
 };
 */
 
 int main()
 {
-	// 다중 상속
+	// shared_ptr 포인터
 	/*
-	Computer computer('A', 40);
+	// 하나의 객체를 참조하는 스마트 포인터 개수 참조
+	// 참조하고 있는 스마트 포인터 개수 -> reference count
 
-	// 다중 상속일 때 같은 이름의 함수 사용하려면
-	// 클래스 명시, 범위 지정 연산자 사용해서 함수 호출
-	computer.Keyboard::Input();	// Keyboard 클래스의 Input();
-	computer.Mouse::Input();
+	// 참조 카운트 (reference count)
+	// 해당 메모리를 참조하는 포인터가 몇개 있는지 나타내는 값
+	// 참조하는 포인터가 추가되면 1씩 증가, 끊어지면 1씩 감소
+
+	// 첫번째 초기화하는 방법
+	// shared_ptr<int> ptr1(new int(5));
+	// 두번째 초기화하는 방법
+	// shared_ptr<int> ptr1 = make_shared<int>(5);
+
+	// shared_ptr에서 참조 카운트 확인 방법
+	// ptr1.use_count()
+
+	shared_ptr<Player> ptr1(new Player());
+
+	cout << "ptr1 참조 카운트 : " << ptr1.use_count() << endl;
+
+	shared_ptr<Player> ptr2 = ptr1;
+
+	cout << "ptr1 참조 카운트 : " << ptr2.use_count() << endl;
 	*/
 
-	// 다이아몬드 상속
+	// unique_ptr 포인터
 	/*
-	// 하나의 자식 클래스가 상속 받는 서로 다른 부모 클래스들이
-	// 같은 조부모 클래스를 상속 받는 구조
+	// 하나의 스마트 포인터 가리킴
+	// shared_ptr 참조 카운트 1 이상 X
 
-	D d;
+	unique_ptr<Player> ptr1(new Player());
+
+	// ptr1이 가지고 있던 메모리 소유권(동적 할당한 메모리)을
+	// ptr2에게 넘김
+
+	unique_ptr<Player> ptr2 = move(ptr1);
+
+	// reset : 메모리 영역 삭제 함수
+	ptr2.reset();
+
+	// unique_ptr<int> ptr3 = ptr1;	ERROR
 	*/
 
-	// 나머지
+	// weak_ptr 포인터
+	/*
+	// 하나 이상의 shared_ptr 인스턴스가 소유하는 객체에 대한 접근 제공
+	// 하지만 참조 카운트에 포함되지 않는 스마트 포인터
 
-	int array[10] = { 0, };
-	int result = 0;
-	int input = 0;
+	// 서로가 상대를 가리키는 shared_ptr 가지고 있다면
+	// 참조 횟수 1이하로 X
+	// shared_ptr이 해제 되지 않는 문제 발생
 
-	for (int i = 0; i < 10; i++)
-	{
-		cin >> input;
-		array[i] = input % 42;
-	}
+	// 순환 참조
+	// 서로 상대를 참조
 
-	// [] [] [] [] [] [] [] [] [] []
-	for (int i = 0; i <= 9; i++)
-	{
-		int count = 0;
+	// shared_ptr의 인스턴스 사이 순환 참조 제거 위해 사용
 
-		for (int j = i + 1; j <= 9; j++)
-		{
-			if (array[i] == array[j])
-			{
-				count++;
-			}
-		}
+	shared_ptr<Person> obj1(new Person());
+	shared_ptr<Person> obj2(new Person());
 
-		if (count == 0)
-		{
-			result++;
-		}
+	cout << "obj1 참조 카운트 : " << obj1.use_count() << endl;
+	cout << "obj2 참조 카운트 : " << obj2.use_count() << endl;
 
-		cout << result << endl;
-	}
+	obj1->person = obj2;
+	obj2->person = obj1;
+	*/
 
 	return 0;
 }
