@@ -1,117 +1,145 @@
 #include <iostream>	// 입출력 스트림
-#include <memory>
+#include <vector>
 
 using namespace std;
 
-// 스마트 포인터
+// 템플릿 (클래스, 함수)
+// 데이터의 형식에 의존하지 않고 하나의 값이 다른 데이터 타입 가능
+
+// 컴파일러는 미리 함수 형틀 기억한 다음 함수가 호출될 때 실제 함수 호출
+
+// 함수 템플릿은 선언이기 때문에 메모리 할당과 구체화되어 있지 않은 상태
+
+// 함수 템플릿
 /*
-// 포인터처럼 동작하는 클래스 탬플릿
-// 사용이 끝난 메모리 자동 해제
+template <typename T>
+void Calculator(T x, T y)
+{
+	cout << "x의 값 : " << x << endl;
+	cout << "y의 값 : " << y << endl;
+}
 */
 
+// 클래스 템플릿
 /*
-class Person
+template <class T>
+class Game
 {
-public:
-	// shared_ptr 선언할 경우 순환 참조 발생
-	// weak_ptr 선언할 경우 순환 참조 에방
-	weak_ptr<Person> person;
+private:
+	T num1;
+	T num2;
 
-	Person()
+public:
+	Game(T _num1, T _num2)
 	{
-		cout << "생성" << endl;
+		num1 = _num1;
+		num2 = _num2;
 	}
 
-	~Person()
+	T GetNumber1()
 	{
-		cout << "소멸" << endl;
+		return num1;
+	}
+
+	T GetNumber2()
+	{
+		return num2;
 	}
 };
+*/
 
-class Player
+// 템플릿 특수화
+/*
+// 템플릿에서 미리 지정해놓은 타입이 들어왔을 경우
+// 따로 처리하고 있을 때 사용
+template <typename T>
+void Add(T x, T y)
 {
-public:
-	Player()
-	{
-		cout << "Player 생성" << endl;
-	}
+	cout << "x의 값 : " << x << endl;
+	cout << "y의 값 : " << y << endl;
+}
 
-	~Player()
-	{
-		cout << "Player 소멸" << endl;
-	}
-};
+// int 매개 변수로 들어오게 되면 이 함수로 처리
+template<>
+void Add(int x, int y)
+{
+
+}
 */
 
 int main()
 {
-	// shared_ptr 포인터
+	// 함수 템플릿
 	/*
-	// 하나의 객체를 참조하는 스마트 포인터 개수 참조
-	// 참조하고 있는 스마트 포인터 개수 -> reference count
+	Calculator(10, 20);
 
-	// 참조 카운트 (reference count)
-	// 해당 메모리를 참조하는 포인터가 몇개 있는지 나타내는 값
-	// 참조하는 포인터가 추가되면 1씩 증가, 끊어지면 1씩 감소
+	Calculator(10.5f, 6.7f);
 
-	// 첫번째 초기화하는 방법
-	// shared_ptr<int> ptr1(new int(5));
-	// 두번째 초기화하는 방법
-	// shared_ptr<int> ptr1 = make_shared<int>(5);
-
-	// shared_ptr에서 참조 카운트 확인 방법
-	// ptr1.use_count()
-
-	shared_ptr<Player> ptr1(new Player());
-
-	cout << "ptr1 참조 카운트 : " << ptr1.use_count() << endl;
-
-	shared_ptr<Player> ptr2 = ptr1;
-
-	cout << "ptr1 참조 카운트 : " << ptr2.use_count() << endl;
+	Calculator('A', 'B');
 	*/
 
-	// unique_ptr 포인터
+	// 클래스 템플릿
 	/*
-	// 하나의 스마트 포인터 가리킴
-	// shared_ptr 참조 카운트 1 이상 X
+	Game<int> game1(10, 20);
+	cout << game1.GetNumber1() << endl;
+	cout << game1.GetNumber2() << endl;
 
-	unique_ptr<Player> ptr1(new Player());
-
-	// ptr1이 가지고 있던 메모리 소유권(동적 할당한 메모리)을
-	// ptr2에게 넘김
-
-	unique_ptr<Player> ptr2 = move(ptr1);
-
-	// reset : 메모리 영역 삭제 함수
-	ptr2.reset();
-
-	// unique_ptr<int> ptr3 = ptr1;	ERROR
+	Game<float> game2(8.5f, 9.6f);
+	cout << game2.GetNumber1() << endl;
+	cout << game2.GetNumber2() << endl;
 	*/
 
-	// weak_ptr 포인터
+	// 템플릿 특수화
 	/*
-	// 하나 이상의 shared_ptr 인스턴스가 소유하는 객체에 대한 접근 제공
-	// 하지만 참조 카운트에 포함되지 않는 스마트 포인터
-
-	// 서로가 상대를 가리키는 shared_ptr 가지고 있다면
-	// 참조 횟수 1이하로 X
-	// shared_ptr이 해제 되지 않는 문제 발생
-
-	// 순환 참조
-	// 서로 상대를 참조
-
-	// shared_ptr의 인스턴스 사이 순환 참조 제거 위해 사용
-
-	shared_ptr<Person> obj1(new Person());
-	shared_ptr<Person> obj2(new Person());
-
-	cout << "obj1 참조 카운트 : " << obj1.use_count() << endl;
-	cout << "obj2 참조 카운트 : " << obj2.use_count() << endl;
-
-	obj1->person = obj2;
-	obj2->person = obj1;
+	Add(10, 20);
 	*/
+
+	// STL (Standart Template Library)
+	// 표준 템플릿 라이브러리
+	// 자료구조, 알고리즘 Template 형태로 제공
+
+	// STL 구성
+	/*
+	// 1. 컨테이너
+	// 데이터를 저장하는 객체, 자료구조를 모아둔 집합
+	//	- A : 순차 컨테이너, 자료를 순차적으로 저장
+	//	- B : 연관 컨테이너, 트리 구조
+	//        검색, 삽입, 삭제 빠름
+	//	- c : 컨테이너 어댑터
+	//        기존 컨테이너의 일부 기능만 사용 가능
+	//        기능 제한, 변형
+	*/
+
+	// Vector
+	// 동적으로 원소 추가 가능
+	// 크기가 자동으로 늘어남
+	vector<int> data{10, 5};
+
+	// push_back() : 뒤에서부터 데이터 넣어줌
+	//data.push_back(10);
+	//data.push_back(5);
+
+	// pop_back() : 뒤에서부터 데이터 뺌
+	data.pop_back();
+
+	// size() : vector의 컨테이너 크기 반환
+	data.size();
+
+	for (int i = 0; i < data.size(); i++)
+	{
+		cout << data[i] << endl;
+	}
+
+	// front() : 맨 앞 원소 출력
+	cout << data.front() << endl;
+
+	// vector는 맨 앞에 원소 추가 X
+
+	// List
+	// 
+	
+	// Deque
+	//
 
 	return 0;
 }
