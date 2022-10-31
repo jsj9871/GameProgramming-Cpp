@@ -142,6 +142,7 @@
     <ClInclude Include="2022.10.25(가상 소멸자, friend).h" />
     <ClInclude Include="2022.10.26(다중, 가상 상속).h" />
     <ClInclude Include="2022.10.27(스마트 포인터).h" />
+    <ClInclude Include="2022.10.31(template, vector).h" />
     <ClInclude Include="Monster.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
