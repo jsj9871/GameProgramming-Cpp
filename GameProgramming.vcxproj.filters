@@ -62,5 +62,8 @@
     <ClInclude Include="2022.10.31(template, vector).h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="2022.10.31(string, 리듬게임).h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
