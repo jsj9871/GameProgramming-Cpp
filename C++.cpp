@@ -1,95 +1,128 @@
 #include <iostream>	// 입출력 스트림
-#include <queue>
-#include <stack>
 
 using namespace std;
 
+// const 함수
+/*
+// const 함수 내부에서 변수 값을 변경할 수 없도록 선언
+class Character
+{
+private:
+	int health;
+	string name;
+
+public:
+	void SetInfo(int m_health, string m_name)
+	{
+		health = m_health;
+		name = m_name;
+
+		health = 300;
+	}
+
+	void GetInfo() const
+	{
+		// const 함수 역할 : 함수 내에서 멤버 변수의 값을 읽기 전용 선언
+		// health = 300;
+
+		cout << "health 값 : " << health << endl;
+		cout << "name 값 : " << name << endl;
+	}
+};
+*/
+
+// final
+/*
+// 더 이상 클래스나 가상 함수르 상속 받지 않고 재정의할 수 있도록 설정
+
+class A
+{
+public:
+	void FunctionA()
+	{
+		cout << "A 함수" << endl;
+	}
+
+	virtual void FunctionB1()
+	{
+		cout << "A 클래스에서 호출한 B1 함수" << endl;
+	}
+};
+
+class B : public A
+{
+	void FunctionB()
+	{
+		cout << "B 함수" << endl;
+	}
+
+	virtual void FunctionB1() final
+	{
+		cout << "B클래스에서 호출한 B1 함수" << endl;
+	}
+
+};
+
+class C : public B
+{
+	void FunctionB()
+	{
+		cout << "C 클래스에서 호출한 B 함수" << endl;
+	}
+
+	// FunctionB1()는 B 클래스에서 final로 선언했기 때문에
+	// 자식 클래스 C에서 재정의할 수 없음
+	// void FunctionB1() { }
+};
+*/
+
+// 상속 접근지정자
+/*
+class CPU
+{
+public:
+	void Count()
+	{
+		cout << "CPU Count" << endl;
+	}
+};
+
+// 상속할 때 접근 지정자를 명시적으로 선언하지 않으면 private
+
+// 상속에서 private 접근 지정자로 상속 받게 되면
+// 부모 클래스의 멤버를 자식 클래스에서 호출 X
+class ALU : public CPU
+{
+
+};
+*/
+
+// is-a 관계
+// 일반적 개념과 구체적 개념의 관계
+
+// has-a 관계
+// 구성 관계를 의미하며 한 오브젝트(구성된 객체, 부분/멤버 객체)가
+// 다른 오브젝트(composite type)에 속한다(belong to)
+
 int main()
 {
-	// 큐 (FIFO) First In First Out
+	// const 함수
 	/*
-	// 먼저 들어온 데이터가 먼저 나가는 구조의 컨테이너
-	queue<int> Queue;
+	Character character;
 
-	// [[10] [20] [30]]
-	// Queue.push(값) : 큐 컨테이너에 데이터를 넣음
-	Queue.push(10);	// [10]
-	Queue.push(20);	// [10] [20]
-	Queue.push(30); // [10] [20] [30]
+	character.SetInfo(99, "칼리스타");
 
-	int value = Queue.size();
-
-	for (int i = 0; i < value; i++)
-	{
-		cout << Queue.front() << endl;
-		Queue.pop();
-	}
-
-	// Queue.pop() : 큐 컨테이너에서 데이터를 꺼냄
-	//Queue.pop();	// [20] [30]
-
-	// Queue.front() : 큐 컨테이너에 저장되어 있는 원소중에서 가장 앞에 있는 값 출력
-	//cout << Queue.front() << endl;
-
-	// Queue.size() : 큐 컨테이너의 크기 출력
-	//cout << Queue.size() << endl;
-
-	// Queue.empty() : 큐 컨테이너가 비어있는지 확인
-	//cout << Queue.empty() << endl;
+	character.GetInfo();
 	*/
 
-	// 스택 (LIFO) Last In First Out
+	// final
 	/*
-	// 마지막에 들어온 데이터가 먼저 나가는 구조의 컨테이너
-	stack<int> Stack;
-	stack<int> otherStack;
-
-	otherStack.push(-100);	// -100
-	otherStack.push(-200);	// -200 -100
-	otherStack.push(-300);	// -300 -200 -100
-
-	Stack.push(10);	// 10
-	Stack.push(20);	// 20 10
-	Stack.push(30);	// 30 20 10
-
-	// swap() : 두 스택의 내용을 바꿈
-	swap(Stack, otherStack);
-
-	// Stack.top() : 가장 위에 있는 원소 출력
-	cout << Stack.top() << endl;
-
-	// Stack.pop() : 가장 위에 있는 원소 뺌
-	Stack.pop();
-
-	// Stack.size() : 스택 컨테이너에 들어있는 크기 반환
-	cout << Stack.size() << endl;
+	C cClass;
 	*/
 
-	// 개수 세기
+	// 상속 접근지정자
 	/*
-	int n = 0;
-	int array[100] = { 0, };
-	int selectNumber = 0;
-	int result = 0;
-
-	cin >> n;
-
-	for (int i = 0; i < n; i++)
-	{
-		cin >> array[i];
-	}
-
-	cin >> selectNumber;
-
-	for (int i = 0; i < n; i++)
-	{
-		if (selectNumber == array[i])
-		{
-			result++;
-		}
-	}
-
-	cout << result << endl;
+	ALU alu;
 	*/
 
 	return 0;
