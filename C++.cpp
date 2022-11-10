@@ -1,129 +1,80 @@
 #include <iostream>	// 입출력 스트림
+#include <deque>
+#include <set>
+#include <stack>
 
 using namespace std;
 
-// const 함수
-/*
-// const 함수 내부에서 변수 값을 변경할 수 없도록 선언
-class Character
-{
-private:
-	int health;
-	string name;
-
-public:
-	void SetInfo(int m_health, string m_name)
-	{
-		health = m_health;
-		name = m_name;
-
-		health = 300;
-	}
-
-	void GetInfo() const
-	{
-		// const 함수 역할 : 함수 내에서 멤버 변수의 값을 읽기 전용 선언
-		// health = 300;
-
-		cout << "health 값 : " << health << endl;
-		cout << "name 값 : " << name << endl;
-	}
-};
-*/
-
-// final
-/*
-// 더 이상 클래스나 가상 함수르 상속 받지 않고 재정의할 수 있도록 설정
-
-class A
-{
-public:
-	void FunctionA()
-	{
-		cout << "A 함수" << endl;
-	}
-
-	virtual void FunctionB1()
-	{
-		cout << "A 클래스에서 호출한 B1 함수" << endl;
-	}
-};
-
-class B : public A
-{
-	void FunctionB()
-	{
-		cout << "B 함수" << endl;
-	}
-
-	virtual void FunctionB1() final
-	{
-		cout << "B클래스에서 호출한 B1 함수" << endl;
-	}
-
-};
-
-class C : public B
-{
-	void FunctionB()
-	{
-		cout << "C 클래스에서 호출한 B 함수" << endl;
-	}
-
-	// FunctionB1()는 B 클래스에서 final로 선언했기 때문에
-	// 자식 클래스 C에서 재정의할 수 없음
-	// void FunctionB1() { }
-};
-*/
-
-// 상속 접근지정자
-/*
-class CPU
-{
-public:
-	void Count()
-	{
-		cout << "CPU Count" << endl;
-	}
-};
-
-// 상속할 때 접근 지정자를 명시적으로 선언하지 않으면 private
-
-// 상속에서 private 접근 지정자로 상속 받게 되면
-// 부모 클래스의 멤버를 자식 클래스에서 호출 X
-class ALU : public CPU
-{
-
-};
-*/
-
-// is-a 관계
-// 일반적 개념과 구체적 개념의 관계
-
-// has-a 관계
-// 구성 관계를 의미하며 한 오브젝트(구성된 객체, 부분/멤버 객체)가
-// 다른 오브젝트(composite type)에 속한다(belong to)
 
 int main()
 {
-	// const 함수
+	// STL
 	/*
-	Character character;
-
-	character.SetInfo(99, "칼리스타");
-
-	character.GetInfo();
+	// 연관 컨테이너 Map, Set
+	// 선형 컨테이너 list, vector, deque
+	// 컨테이너 어댑터 stack, queue
 	*/
 
-	// final
+	// deque
 	/*
-	C cClass;
+	// 데이터가 들어오는 위치와 나가는 위치가 가장 뒤
+	// 데이터가 나가는 위치와 들어오는 위치가 가장 앞에 있는 선형 컨테이너
+
+	deque<int> dequeData;
+
+	dequeData.push_back(1);
+	dequeData.push_back(2);
+	dequeData.push_front(10);
+	dequeData.push_back(3);
+	dequeData.push_back(4);
+
+	// insert : 내가 삽입하고자 하는 위치, 해당 위치 들어갈 값
+	dequeData.insert(dequeData.begin() + 2, 500);
+
+	// erase : 내가 삭제하고 싶은 원소의 위치
+	dequeData.erase(dequeData.begin());
+
+	for (int i = 0; i < dequeData.size(); i++)
+	{
+		cout << dequeData.at(i) << endl;
+
+		// [] 인덱스 접근 출력이 성능상 유리
+		cout << dequeData[i] << endl;
+	}
 	*/
 
-	// 상속 접근지정자
+	// multi_set
 	/*
-	ALU alu;
+	// set과 다르게 중복된 원소를 컨테이너에 저장
+	multiset<int>mSet;
+	mSet.insert(4);
+	mSet.insert(1);
+	mSet.insert(2);
+	mSet.insert(3);
+	mSet.insert(6);
+	mSet.insert(7);
+	mSet.insert(5);
+	mSet.insert(7);
+
+	for (auto iter = mSet.begin(); iter != mSet.end(); iter++)
+	{
+		cout << *iter << endl;
+	}
+
+	// mSet.count(?) : 현재 컨테이너에 ?라는 값이 몇 개 존재하는지 출력
+	cout << "mSet에 7이라는 값은 현재 몇 개 존재하나요? : " << mSet.count(7) << endl;
+
+	// 4가 처음으로 나온 부분은 어디일까요?
+	multiset<int>::iterator start;
+
+	start = mSet.lower_bound(4);
+	cout << "4가 처음으로 나온 부분 : " << *start << endl;
 	*/
+
+	// Node (struct)
+
+	// stack, queue
+	stack<int> Stack;
 
 	return 0;
 }
