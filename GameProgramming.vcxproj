@@ -150,6 +150,7 @@
     <ClInclude Include="2022.11.04(큐, 스택).h" />
     <ClInclude Include="2022.11.07(MAP, SET).h" />
     <ClInclude Include="2022.11.08(const, final, ishas a).h" />
+    <ClInclude Include="2022.11.11(우선순위 큐).h" />
     <ClInclude Include="Monster.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

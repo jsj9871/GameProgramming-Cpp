@@ -1,80 +1,117 @@
 #include <iostream>	// 입출력 스트림
-#include <deque>
-#include <set>
-#include <stack>
 
 using namespace std;
 
+int buffer[5] = { 0, };
+
+class Queue
+{
+private:
+	int rear = -1;
+	int front = -1;
+
+public:
+
+	void BufferPrint()
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			cout << buffer[i] << endl;
+		}
+	}
+
+	bool Empty()
+	{
+		if (front == rear)
+		{
+			cout << "큐가 비었음" << endl;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	bool IsFull()
+	{
+		if (rear == 4)
+		{
+			cout << "데이터 가득 차서 넣을 수 없음" << endl;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	void Push(int value)
+	{
+		// 데이터가 가득 차 있는 상태면 데이터 못 넣음
+		if (IsFull() == true)
+		{
+			cout << "데이터 가득 차서 넣을 수 없음" << endl;
+		}
+		else
+		{
+			buffer[++rear] = value;
+		}
+	}
+
+	int Pop()
+	{
+		int temp;
+
+		// rear == front
+		if (Empty() == true)
+		{
+			cout << "큐 비었음" << endl;
+
+			return 0;
+		}
+		else
+		{
+			int temp = buffer[++front];
+
+			buffer[front] = 0;
+
+			return temp;
+		}
+	}
+};
 
 int main()
 {
-	// STL
-	/*
-	// 연관 컨테이너 Map, Set
-	// 선형 컨테이너 list, vector, deque
-	// 컨테이너 어댑터 stack, queue
-	*/
+	// 큐
+	// FIFO (First In First Out)
+	// 먼저 들어온 데이터가 먼저 나가는 구조
 
-	// deque
-	/*
-	// 데이터가 들어오는 위치와 나가는 위치가 가장 뒤
-	// 데이터가 나가는 위치와 들어오는 위치가 가장 앞에 있는 선형 컨테이너
+	// 선형 큐
+	// 문제점
+	// 데이터를 추가할 때 index 값을 감소시키지 않고 증가만 시키기때문에
+	// 앞에 데이터가 없을 때에도 큐에 데이터를 저장할 수 없는 형태 나타남
 
-	deque<int> dequeData;
+	Queue queue;
 
-	dequeData.push_back(1);
-	dequeData.push_back(2);
-	dequeData.push_front(10);
-	dequeData.push_back(3);
-	dequeData.push_back(4);
+	queue.Push(1);
+	queue.Push(2);
+	queue.Push(3);
+	queue.Push(4);
+	queue.Push(5);
 
-	// insert : 내가 삽입하고자 하는 위치, 해당 위치 들어갈 값
-	dequeData.insert(dequeData.begin() + 2, 500);
+	cout << queue.Pop() << endl;
+	cout << queue.Pop() << endl;
+	cout << queue.Pop() << endl;
+	cout << queue.Pop() << endl;
+	cout << queue.Pop() << endl;
 
-	// erase : 내가 삭제하고 싶은 원소의 위치
-	dequeData.erase(dequeData.begin());
+	queue.BufferPrint();
 
-	for (int i = 0; i < dequeData.size(); i++)
-	{
-		cout << dequeData.at(i) << endl;
+	queue.Push(10);
 
-		// [] 인덱스 접근 출력이 성능상 유리
-		cout << dequeData[i] << endl;
-	}
-	*/
+	// 원형 큐
 
-	// multi_set
-	/*
-	// set과 다르게 중복된 원소를 컨테이너에 저장
-	multiset<int>mSet;
-	mSet.insert(4);
-	mSet.insert(1);
-	mSet.insert(2);
-	mSet.insert(3);
-	mSet.insert(6);
-	mSet.insert(7);
-	mSet.insert(5);
-	mSet.insert(7);
-
-	for (auto iter = mSet.begin(); iter != mSet.end(); iter++)
-	{
-		cout << *iter << endl;
-	}
-
-	// mSet.count(?) : 현재 컨테이너에 ?라는 값이 몇 개 존재하는지 출력
-	cout << "mSet에 7이라는 값은 현재 몇 개 존재하나요? : " << mSet.count(7) << endl;
-
-	// 4가 처음으로 나온 부분은 어디일까요?
-	multiset<int>::iterator start;
-
-	start = mSet.lower_bound(4);
-	cout << "4가 처음으로 나온 부분 : " << *start << endl;
-	*/
-
-	// Node (struct)
-
-	// stack, queue
-	stack<int> Stack;
 
 	return 0;
 }
