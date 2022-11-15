@@ -2,29 +2,19 @@
 
 using namespace std;
 
-int buffer[5] = { 0, };
+int buffer[6];
 
-class Queue
+class CircleQueue
 {
 private:
-	int rear = -1;
-	int front = -1;
+	int front = 6 - 1;	 // 배열 최대 크기 -1
+	int rear = 6 - 1;
 
 public:
-
-	void BufferPrint()
-	{
-		for (int i = 0; i < 5; i++)
-		{
-			cout << buffer[i] << endl;
-		}
-	}
-
 	bool Empty()
 	{
 		if (front == rear)
 		{
-			cout << "큐가 비었음" << endl;
 			return true;
 		}
 		else
@@ -33,11 +23,10 @@ public:
 		}
 	}
 
-	bool IsFull()
+	bool isFull()
 	{
-		if (rear == 4)
+		if ((rear + 1) % 6 == front)
 		{
-			cout << "데이터 가득 차서 넣을 수 없음" << endl;
 			return true;
 		}
 		else
@@ -48,70 +37,59 @@ public:
 
 	void Push(int value)
 	{
-		// 데이터가 가득 차 있는 상태면 데이터 못 넣음
-		if (IsFull() == true)
+		if (isFull() == true)
 		{
-			cout << "데이터 가득 차서 넣을 수 없음" << endl;
+			cout << "큐가 가득 차 있음" << endl;
 		}
 		else
 		{
-			buffer[++rear] = value;
+			rear = (rear + 1) % 6;
+			buffer[rear] = value;
 		}
 	}
 
 	int Pop()
 	{
-		int temp;
-
-		// rear == front
-		if (Empty() == true)
+		if (Empty() == false)
 		{
-			cout << "큐 비었음" << endl;
+			front = (front + 1) % 6;
 
-			return 0;
-		}
-		else
-		{
-			int temp = buffer[++front];
+			int temp = buffer[front];
 
 			buffer[front] = 0;
 
 			return temp;
+		}
+		else
+		{
+			cout << "큐가 비어있음" << endl;
 		}
 	}
 };
 
 int main()
 {
-	// 큐
-	// FIFO (First In First Out)
-	// 먼저 들어온 데이터가 먼저 나가는 구조
-
-	// 선형 큐
-	// 문제점
-	// 데이터를 추가할 때 index 값을 감소시키지 않고 증가만 시키기때문에
-	// 앞에 데이터가 없을 때에도 큐에 데이터를 저장할 수 없는 형태 나타남
-
-	Queue queue;
-
-	queue.Push(1);
-	queue.Push(2);
-	queue.Push(3);
-	queue.Push(4);
-	queue.Push(5);
-
-	cout << queue.Pop() << endl;
-	cout << queue.Pop() << endl;
-	cout << queue.Pop() << endl;
-	cout << queue.Pop() << endl;
-	cout << queue.Pop() << endl;
-
-	queue.BufferPrint();
-
-	queue.Push(10);
+	
 
 	// 원형 큐
+	// 배열의 마지막 인덱스를 비워주어야 함
 
+	CircleQueue	Queue;
+	Queue.Push(10);
+	Queue.Push(20);
+	Queue.Push(30);
+	Queue.Push(40);
+	Queue.Push(50);
+
+	cout << Queue.Pop() << endl;
+	cout << Queue.Pop() << endl;
+	cout << Queue.Pop() << endl;
+	cout << Queue.Pop() << endl;
+	cout << Queue.Pop() << endl;
+
+	Queue.Push(10);
+	Queue.Push(20);
+	Queue.Push(30);
 
 	return 0;
 }

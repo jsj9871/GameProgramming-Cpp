@@ -86,5 +86,8 @@
     <ClInclude Include="2022.11.11(우선순위 큐).h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="2022.11.14(선형 큐).h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
