@@ -2,58 +2,94 @@
 
 using namespace std;
 
-// 클래스의 메모리 구조
-class Object
+void Plus(int x, int y)
 {
-// 클래스 오프셋
-// 동일한 오브젝트 안에 오브젝트 처음부터 주어진 요소나 지점까지의 변위차를
-// 정수형으로 나타내는 값
+	cout << x + y << endl;
+}
 
-// ex) A[6] = "ABCDE";ㄴ
-// C는 A 시작점에서 2의 오프셋을 가지는 값
+void Effect(int x, int y)
+{
+	cout << x * y << endl;
+}
 
-public:
-	char charData;	// 1 byte
-	int intData;	// 4 byte
-	double doubleData;	// 8 byte
-
-	// static 변수는 클래스 내부에 메모리가 잡히지 않음
-	static int staticData;	// 4 byte
-
-	void StaticDataFunction()
-	{
-		staticData++;
-	}
-};
-
-// 클래스 내부에 있는 static 변수는 클래스 외부에서
-// 전역 변수처럼 초기화
-
-int Object::staticData = 10;
+void Count(int x, int y)
+{
+	cout << x / y << endl;
+}
 
 int main()
 {
-	Object object1;
-	Object object2;
-	Object object3;
-
-	object1.StaticDataFunction();
-
-	cout << Object::staticData << endl;
-	
-	// 클래스의 메모리
+	// Bubble Sort (거품 정렬)
 	/*
-	// 클래스 메모리 크기
-	// 멤버 변수 중에서 가장 큰 자료형의 배수
-	cout << "object 클래스의 크기 : " << sizeof(object) << endl;
+	// 서로 인접한 두 원소의 대소 비교
+	// 조건에 맞지 않다면 자리 교환하는 정렬 알고리즘
+
+	// 거품 정렬 시간 복잡도
+	// O(n*2)
+
+	// 거품 정렬 공간 복잡도
+	// O(n)
+	// 별도 메모리 공간이 필요하지 않은 제자리 정렬
+
+	int data[5] = { 2, 5, 4, 1, 3 };
+
+	int i, j;
+
+	int temp;
+
+	for (int i = 0; i <= 5; i++)
+	{
+		for (int j = 0; j < 4 - i; j++)
+		{
+			if (data[j] > data[j + 1])
+			{
+				temp = data[j];
+				data[j] = data[j + 1];
+				data[j + 1] = temp;
+			}
+		}
+	}
+
+	for (int i = 0; i < 5; i++)
+	{
+		cout << data[i] << endl;
+	}
 	*/
 
-	// 클래스의 오프셋
+	// 연산자 우선 순위
 	/*
-	cout << (int)(&(((Object*)0)->charData)) << endl;
-	cout << (int)(&(((Object*)0)->doubleData)) << endl;
-	cout << (int)(&(((Object*)0)->intData)) << endl;
+	// 수학 및 컴퓨터 프로그래밍에서 연산의 우선 순위는
+	// 모호하게 해석 가능한 수식에서 어느 연산을 먼저 계산할지 결정
+
+	char charArray[6] = { "Korea" };
+	char* charPtr = charArray;
+
+	cout << (char)(*charPtr + 1) << endl;
+
+	// 1 순위
+	// 변수++, 변수-- : 후위
+
+	// 3 순위
+	// * : 곱셈
+	// / : 나눗셈
+	// % : 나머지
 	*/
+
+	// 함수 포인터 배열
+	void (*funcPtr[3])(int, int);
+
+	funcPtr[0] = Plus;
+	funcPtr[1] = Effect;
+	funcPtr[2] = Count;
+
+	for (int i = 0; i < 3; i++)
+	{
+		funcPtr[i](10, 20);
+
+		// Plus(10, 20)
+		// Effect (10, 20)
+		// Count (10, 20)
+	}
 
 	return 0;
 }

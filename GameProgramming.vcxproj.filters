@@ -92,5 +92,8 @@
     <ClInclude Include="2022.11.15(원형 큐).h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="2022.11.16(클래스 메모리 구조).h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
