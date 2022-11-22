@@ -98,5 +98,11 @@
     <ClInclude Include="2022.11.17(Bubble Sort).h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="2022.11.18(Selection Sort).h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="2022.11.21(연결리스트).h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

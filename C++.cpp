@@ -2,59 +2,46 @@
 
 using namespace std;
 
-class User
+struct Node
 {
-public:
-	void operator() ()
-	{
-		cout << "Function Object" << endl;
-		cout << "signal : " << signal << endl;
-	}
-
-private:
-	int signal = 0;
+	int data;
+	Node* next;
 };
+
+void Insert(Node * targetNode, int value)
+{
+	Node* newNode = new Node;
+	newNode->data = value;
+	newNode->next = targetNode->next;
+
+	targetNode->next = newNode;
+}
+
+void Remove(Node* originNode)
+{
+	Node* targetNode = originNode->next;
+	originNode->next = targetNode->next;
+
+	delete targetNode;
+}
 
 int main()
 {
-	// 선택 정렬
-	/*
-	// 주어진 리스트 중에서 최소값을 찾은 다음
-	// 그 값을 맨 앞에 위치한 값과 교체하는 정렬
+	Node* head = new Node();
+	head->next = NULL;
 
-	int data[5] = { 10, 3, 4, 2, 1 };
+	Insert(head, 10);
+	Insert(head, 20);
+	Insert(head, 30);
+	Remove(head);
 
-	int min;
+	Node* currentNode = head->next;
 
-	int temp;
-
-	for (int i = 0; i < 5; i++)
+	while (currentNode != NULL)
 	{
-		min = i;
-
-		for (int j = i; j < 5; j++)
-		{
-			if (data[min] > data[j])
-			{
-				min = j;
-			}
-		}
-
-		temp = data[i];
-		data[i] = data[min];
-		data[min] = temp;
+		cout << currentNode->data << endl;
+		currentNode = currentNode->next;
 	}
-
-	for (int i = 0; i < 5; i++)
-	{
-		cout << data[i] << endl;
-	}
-	*/
-
-	// 함수 객체
-	// 함수처럼 동작하는 객체
-	User user;
-	user();
 
 	return 0;
 }

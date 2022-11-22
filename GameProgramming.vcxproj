@@ -155,6 +155,8 @@
     <ClInclude Include="2022.11.15(원형 큐).h" />
     <ClInclude Include="2022.11.16(클래스 메모리 구조).h" />
     <ClInclude Include="2022.11.17(Bubble Sort).h" />
+    <ClInclude Include="2022.11.18(Selection Sort).h" />
+    <ClInclude Include="2022.11.21(연결리스트).h" />
     <ClInclude Include="Monster.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
