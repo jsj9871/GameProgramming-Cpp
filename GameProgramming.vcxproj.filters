@@ -104,5 +104,8 @@
     <ClInclude Include="2022.11.21(연결리스트).h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="2022.11.22(연결리스트 추가, 삭제).h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
