@@ -158,6 +158,9 @@
     <ClInclude Include="2022.11.18(Selection Sort).h" />
     <ClInclude Include="2022.11.21(연결리스트).h" />
     <ClInclude Include="2022.11.22(연결리스트 추가, 삭제).h" />
+    <ClInclude Include="2022.11.23%28양방향 연결리스트%29.h" />
+    <ClInclude Include="2022.11.25(삽입 정렬).h" />
+    <ClInclude Include="2022.11.28(원형 연결리스트).h" />
     <ClInclude Include="Monster.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
